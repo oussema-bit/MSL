@@ -44,7 +44,7 @@ class App extends Component {
   }
 
   requestProfile = () => {
-    var oauthUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=r_liteprofile&state=123456&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
+    var oauthUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=r_liteprofile,r_emailaddress&state=123456&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
     var width = 450,
       height = 730,
       left = window.screen.width / 2 - width / 2,
@@ -67,18 +67,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">React Linkedin Login</h1>
-          <p className="App-intro">A demo page for Linkedin login</p>
-          <FontAwesomeIcon icon={["fab", "github"]} />{" "}
-          <a
-            href="https://github.com/tonyxu-io/React-Linkedin-Login"
-            className="github-link"
-          >
-            tonyxu-io/React-Linkedin-Login
-          </a>
-          <Alert />
-        </header>
+        
         <div className="App-body">
           <button onClick={this.requestProfile}>Linkedin Login</button>
           {this.state.isAuthorized &&
