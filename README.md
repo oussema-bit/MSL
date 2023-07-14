@@ -1,24 +1,4 @@
-# React Linkedin Login
 
-![.github/workflows/workflow.yml](https://github.com/tonyxu-io/React-Linkedin-Login/workflows/.github/workflows/workflow.yml/badge.svg)
-
-A simple app to demo LinkedIn login using LinkedIn OAuth 2.0
-
-## Screenshot
-
-![React Linkedin Login Screenshot](.github/React-Linkedin-Login.png)
-
-## Demo
-
-https://tony-linkedin-login.azurewebsites.net/
-
-## Usage
-
-### Clone
-
-```shell
-git clone https://github.com/tonyxu-io/React-Linkedin-Login.git
-```
 
 ### Install Dependencies
 
