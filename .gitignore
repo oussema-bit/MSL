@@ -34,3 +34,5 @@ google-app-engine-client-secret.json
 app.yaml
 
 .history
+node_modules/
+client/node_modules
