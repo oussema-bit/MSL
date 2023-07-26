@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var callback = require('./routes/callback');
-
+var postLinkedin= require('./routes/linkedinPost');
+var postLinkedinWithArticle= require('./routes/linkedinPostWithArticle')
 var app = express();
-
+var session = require('express-session');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,13 +21,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  secret: 'your-secret-key', // Replace with your own secret key
+  resave: false,
+  saveUninitialized: true,
+}));
 // app.use('/', index);
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use('/callback', callback);
-
+app.use('/post/linkedin',postLinkedin);
+app.use('/post/linkedin/article',postLinkedinWithArticle)
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })
 
 // catch 404 and forward to error handler

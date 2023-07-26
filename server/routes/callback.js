@@ -3,13 +3,12 @@ var router = express.Router();
 const request = require('superagent');
 require('dotenv').config()
 
-/* Handle LinkedIn OAuth callback and return user profile. */
-router.get('/', function(req, res, next) {
+
+router.get('/', function(req, res) {
   requestAccessToken(req.query.code,req.query.state)
   .then((response) => {
-    requestProfile(response.body.access_token)
+    requestProfile(response.body.access_token,req)
     .then(response => {
-      console.log(response.body)
       res.render('callback', { profile: response.body});
     })
   })
@@ -29,7 +28,8 @@ function requestAccessToken(code,state) {
     .send(`state=${state}`)
 }
 
-function requestProfile(token) {
+function requestProfile(token,req) {
+  req.session.accessToken=token;
   return request.get('https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,email,profilePicture(displayImage~digitalmediaAsset:playableStreams))')
   .set('Authorization', `Bearer ${token}`)
 }

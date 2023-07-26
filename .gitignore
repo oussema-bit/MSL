@@ -5,7 +5,8 @@
 *.iml
 
 # dependencies
-node_modules/
+server/node_modules/
+client/node_modules/
 
 # testing
 /coverage
@@ -14,18 +15,18 @@ node_modules/
 /build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+server/.DS_Store
+server/.env.local
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # Environment Variables
-.env
+server/.env
 
 client/build
 
@@ -33,6 +34,4 @@ client/build
 google-app-engine-client-secret.json
 app.yaml
 
-.history
-node_modules/
-client/node_modules/
+server/.history
