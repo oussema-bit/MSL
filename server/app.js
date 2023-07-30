@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var callback = require('./routes/callback');
 var postLinkedin= require('./routes/linkedinPost');
 var postLinkedinWithArticle= require('./routes/linkedinPostWithArticle')
+var postLinkedinWithImage= require('./routes/linkedinPostWithImage')
 var app = express();
 var session = require('express-session');
 // view engine setup
@@ -28,9 +29,13 @@ app.use(session({
 }));
 // app.use('/', index);
 app.use(express.static(path.join(__dirname, '../client/build')));
+
+
 app.use('/callback', callback);
 app.use('/post/linkedin',postLinkedin);
-app.use('/post/linkedin/article',postLinkedinWithArticle)
+app.use('/post/linkedin/article',postLinkedinWithArticle);
+app.use('/post/linkedin/image',postLinkedinWithImage);
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })

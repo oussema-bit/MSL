@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import axios from "axios";
 export default function PostTemplate(profileID) {
     
-    const [postContent,setPostContent]=useState('');
-    const [articleUrl,setArticleURL]=useState("");
-    const [articleText,setArticleText]= useState("");
-    const [articleTitle,setArticleTitle]=useState("");
-      
+    const [postContent,setPostContent]=useState(null);
+    const [articleUrl,setArticleURL]=useState(null);
+    const [articleText,setArticleText]= useState(null);
+    const [articleTitle,setArticleTitle]=useState(null);
+    const [postImage,setPostImage]=useState(null);
+    const image_Ref=useRef(null);
+    const [fileIm,setfileIm]=useState(null);
       const handleSubmit= async (e)=>{
         e.preventDefault();
         const res=  await axios.post('/post/linkedin/',{
@@ -29,9 +31,30 @@ export default function PostTemplate(profileID) {
         } catch (error) {
           console.log(error);
         }
-        
-        
       }
+
+      const handleSubmitWithImage= async (e)=>{
+        e.preventDefault();
+        /*const formData=new FormData();
+        formData.append('postimage',fileIm);
+        formData.append('content',postContent);
+
+        formData.append('profId',profileID.profileID);*/
+        const res=  await axios.post('/post/linkedin/image',{
+          content: postContent, 
+          profId: profileID.profileID,
+          postimage: postImage
+        });
+        console.log(res);
+      }
+      const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log(e);
+        setfileIm(file);
+        const imageURL= URL.createObjectURL(file);
+        setPostImage(imageURL);
+        
+      };
     
       
     
@@ -94,6 +117,31 @@ export default function PostTemplate(profileID) {
               Post with article
             </button>
             
+          </form>
+              <br/>
+
+          <form onSubmit={handleSubmitWithImage}>
+            
+            <textarea
+              name="content"
+              type="text"
+              value={postContent}
+              onChange={(event)=>{
+                setPostContent(event.target.value);
+              }}
+            ></textarea>
+            <input 
+            type="file"
+            accept='image/*'
+            onChange={handleImageChange}
+            ref={image_Ref}
+            />
+            <button type="submit">
+              Post
+            </button>
+            <div>
+              <img src={postImage} alt="" srcset="" />
+            </div>
           </form>
           </>
           
